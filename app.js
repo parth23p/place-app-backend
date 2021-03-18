@@ -53,7 +53,7 @@ mongoose
     .then(() => {
         // mongodb+srv://${process.env.DB_USER}:${process.env.DB_ASSWORD}@cluster0.d9ujz.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority
         // there is a process globally available in node js and env key gives u an aceess to environment variables into running proess
-        app.listen(5000, function (req, res) {
+        app.listen(process.env.PORT || 5000, function (req, res) {
             console.log("listening on port 5000");
         });
     })

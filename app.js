@@ -16,6 +16,7 @@ app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 // by default middleware allows to execute programatically changes and  not allowing file read write permisions.
 // but we want that our backend middleware return a file to forntend so we have to use route '/uploads/images' where our all files(images are located)
 // and express.static exactly does that.it returns a requested file to frontend
+// app.use(express.static(path.join('public')));
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Reequested-With,Content-Type,Accept,Authorization');
@@ -27,9 +28,12 @@ app.use((req, res, next) => {
 app.use('/api/places', placesRoutes);
 app.use("/api/users", usersRoutes);
 app.use((req, res, next) => {
-    const error = new HttpError("Could not firnd this route!", 404);
-    throw error;
+    // res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
+// app.use((req, res, next) => {
+//     const error = new HttpError("Could not firnd this route!", 404);
+//     throw error;
+// });
 
 // general error handler middleware
 app.use((error, req, res, next) => {
@@ -53,7 +57,7 @@ mongoose
     .then(() => {
         // mongodb+srv://${process.env.DB_USER}:${process.env.DB_ASSWORD}@cluster0.d9ujz.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority
         // there is a process globally available in node js and env key gives u an aceess to environment variables into running proess
-        app.listen(process.env.PORT || 5000, function (req, res) {
+        app.listen(5000, function (req, res) {
             console.log("listening on port 5000");
         });
     })
